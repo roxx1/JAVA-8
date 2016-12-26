@@ -7,8 +7,8 @@ import java.util.List;
 
 public class Java8Fun {
 
-    static void printData(List<Person> ls,MyCondition condition){
-              
+     static void printData(List<Person> ls,Predicate<Person> condition){
+              ls.stream().filter(condition).forEach(x->System.out.println(x.firstName));
     }
     
     public static void main(String[] args) {
@@ -19,7 +19,7 @@ public class Java8Fun {
         
         ls.stream().forEach(x->System.out.println(x.id+"   "+x.firstName+"   "+x.lastName));
        
-        printData(ls,()->true);
+        printData(ls,(Person p)->true);
         
     }
     
