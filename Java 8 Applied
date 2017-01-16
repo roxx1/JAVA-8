@@ -1,0 +1,72 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
+
+public class functionJava8 {
+    public static void main(String[] args) {
+ 
+//  ! --- Working With Functions --- !
+    Function<String,String> getSecondLetter=(String s)->{
+        return s==null?null:s.split(" ").length>1?s.split(" ")[1]:null;
+    };
+    
+    Function<String,Integer> getLetterCount=(String s)->{
+        return s.length();
+    };
+    
+   // Integer count=getSecondLetter.andThen(getLetterCount).apply("");
+   //System.out.println(count);
+    
+     Optional.ofNullable(getSecondLetter.apply("Jamia Millia")).map(getLetterCount).ifPresent(System.out::println);
+      
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      Supplier<List<Integer>> listSupp=ArrayList<Integer>::new;
+      List<Integer> ls=listSupp.get();
+      
+      ls.add(12);ls.add(33);ls.add(44);ls.add(32);ls.add(15);ls.add(62);ls.add(1);ls.add(2);
+     
+      //This is a Null Pointer Exception if List Object is Null and There is no Optional Class 
+      //ls.stream().map(x->x/2).filter(y->y%2==0).forEach(System.out::print);
+    
+      
+      Optional.ofNullable(ls.stream().map(x->x/2).filter(y->y%2==0)).get().forEach(entry->System.out.print(entry+"->"));
+      
+      //2nd Way Of Optional 
+      List<Integer> ls1=null;
+      Optional.ofNullable(ls1).orElseGet(ArrayList::new).stream().map(x->x/2).forEach(System.out::print);
+      
+      String str=null;
+      //3rd way applying Optional to String Object
+      String opt=Optional.ofNullable(str).orElseGet(String::new).concat("Hello Brother").toUpperCase();
+      System.out.println("\n"+opt);
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      
+    //   ! --  Working With Predicates  --  !
+      Predicate<String> startsWithA = (String s) ->{
+       return s.startsWith("A")?true:false;
+      };
+      
+      Predicate<String> lengthMoreThan30=(String s)->{
+          return s.length()>30?true:false;
+      };
+          
+      Boolean knowMe=startsWithA.and(lengthMoreThan30.negate()).test("AmsterDam");
+      System.out.println("\n"+knowMe);
+        
+    
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
+      
+// !--- Working With Consumer ----! 
+      
+      Consumer<String> getUpperCase=(String s)->System.out.println(s.toUpperCase());
+      
+      Consumer<String> getLength=(String s)->System.out.println(s.length());
+      
+      getUpperCase.andThen(getLength).accept("Jamia Millia Islamia");
+    
+    }
+}
