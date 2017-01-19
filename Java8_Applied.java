@@ -70,3 +70,55 @@ public class functionJava8 {
     
     }
 }
+ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      //!-- Using Grouping By    --!
+      List<Employee> list;
+         list = Arrays.asList(new Employee("Rahul","IT",6000),new Employee("Shyam","Admin",5000),new Employee("Kumar","IT",4400),new Employee("Jai","Admin",3300));
+      
+        Map<String, IntSummaryStatistics> collect = Optional.ofNullable(list).orElseGet(ArrayList::new).stream().
+                collect(Collectors.groupingBy(emp->emp.getDept(),Collectors.summarizingInt(empl->empl.getSalary())));
+      
+        collect.forEach((k,v)->System.out.println(k+" -> "+v.getSum()));
+      
+        Map<String, Integer> collect1 = Optional.ofNullable(list).orElseGet(ArrayList::new).stream().
+                collect(Collectors.groupingBy(emp->emp.getDept(),Collectors.summingInt(empl->empl.getSalary())));
+      
+        collect1.forEach((k,v)->System.out.println(k+" -> "+v));
+    }
+}
+class Employee{
+    
+    private String name,dept;
+    private Integer salary;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDept() {
+        return dept;
+    }
+
+    public void setDept(String dept) {
+        this.dept = dept;
+    }
+
+    public Integer getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Integer salary) {
+        this.salary = salary;
+    }
+
+    public Employee(String name, String dept, Integer salary) {
+        this.name = name;
+        this.dept = dept;
+        this.salary = salary;
+    }
+    
+}
