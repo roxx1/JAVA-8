@@ -67,9 +67,7 @@ public class functionJava8 {
       Consumer<String> getLength=(String s)->System.out.println(s.length());
       
       getUpperCase.andThen(getLength).accept("Jamia Millia Islamia");
-    
-    }
-}
+
  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       //!-- Using Grouping By    --!
       List<Employee> list;
